@@ -1,0 +1,41 @@
+# rustfmt configuration - rollback-rs
+# Requires nightly rustfmt (configured via rust-toolchain.toml)
+
+# ── Basics ────────────────────────────────────────────────────────────────────
+
+edition = "2021"
+max_width = 100
+hard_tabs = false
+tab_spaces = 4
+
+# ── imports / use ─────────────────────────────────────────────────────────────
+
+reorder_imports = true
+reorder_modules = true
+imports_granularity = "Module"        # Merge same-module use statements into { ... }
+group_imports = "StdExternalCrate"    # Three groups separated: std → external crates → local
+
+# ── Comments ──────────────────────────────────────────────────────────────────
+
+wrap_comments = true
+comment_width = 100
+format_code_in_doc_comments = true    # Format code blocks inside doc comments
+normalize_comments = true             # Normalize // comment style (add space after //)
+normalize_doc_attributes = true       # Convert #[doc="..."] to ///
+
+# ── Functions / Expressions ───────────────────────────────────────────────────
+
+fn_params_layout = "Tall"
+chain_width = 60
+struct_lit_width = 18
+struct_variant_width = 35
+
+# ── Trailing commas / semicolons ──────────────────────────────────────────────
+
+trailing_comma = "Vertical"           # Add trailing comma on multi-line, omit on single-line
+trailing_semicolon = true
+
+# ── Blank lines / single-line control ────────────────────────────────────────
+
+empty_item_single_line = true
+where_single_line = false             # Put where clauses on their own line

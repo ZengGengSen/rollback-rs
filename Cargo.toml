@@ -1,0 +1,25 @@
+[package]
+name = "rollback-rs"
+version = "0.1.0"
+authors = ["ZengGengSen <zenggengsen@outlook.com>"]
+edition = "2024"
+homepage = "https://github.com/ZengGengSen/rollback-rs"
+repository = "https://github.com/ZengGengSen/rollback-rs"
+description = "Rollback mechanism for deterministic games"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+bincode = "1.3"
+thiserror = "1.0"
+ahash = "0.8"
+
+tokio = { version = "1.0", features = ["full"], optional = true }
+
+[features]
+default = ["network"]
+network = ["tokio"]
+
+[[example]]
+name = "p2p_demo"
+required-features = ["network"]
