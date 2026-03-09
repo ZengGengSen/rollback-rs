@@ -5,8 +5,10 @@ authors = ["ZengGengSen <zenggengsen@outlook.com>"]
 edition = "2024"
 homepage = "https://github.com/ZengGengSen/rollback-rs"
 repository = "https://github.com/ZengGengSen/rollback-rs"
-description = "Rollback mechanism for deterministic games"
-license = "MIT OR Apache-2.0"
+description = "A deterministic rollback netcode library for real-time multiplayer games"
+license = "MIT"
+readme = "README.md"
+exclude = [".github/", "tests/"]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
@@ -15,6 +17,9 @@ thiserror = "1.0"
 ahash = "0.8"
 
 tokio = { version = "1.0", features = ["full"], optional = true }
+
+[dev-dependencies]
+proptest = "1.0"
 
 [features]
 default = ["network"]

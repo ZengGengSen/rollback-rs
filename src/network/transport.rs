@@ -31,7 +31,8 @@ impl UdpTransport {
 
     /// Spawn a background receive task.
     ///
-    /// Returns a channel receiver that yields `(source address, raw bytes)` for each packet received.
+    /// Returns a channel receiver that yields `(source address, raw bytes)` for each packet
+    /// received.
     pub fn spawn_recv_task(&self) -> mpsc::UnboundedReceiver<(SocketAddr, Vec<u8>)> {
         let (tx, rx) = mpsc::unbounded_channel();
         let socket = self.socket.clone();

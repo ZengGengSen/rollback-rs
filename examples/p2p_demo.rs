@@ -109,7 +109,7 @@ async fn run_player(
             Ok(true) => {
                 simulated_frames += 1;
                 let state = session.rollback.current_state();
-                if simulated_frames % 10 == 0 {
+                if simulated_frames.is_multiple_of(10) {
                     println!(
                         "[P{player_id}] frame {:>3} | positions: {:?} | confirmed_frame: {}",
                         simulated_frames,
@@ -119,7 +119,7 @@ async fn run_player(
                 }
 
                 // Send a checksum every 30 frames
-                if simulated_frames % 30 == 0 {
+                if simulated_frames.is_multiple_of(30) {
                     session.send_checksum().await;
                 }
             }

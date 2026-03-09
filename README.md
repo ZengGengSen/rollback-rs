@@ -222,9 +222,9 @@ Setting `input_delay = N` schedules local input to be applied at `current_frame 
 
 ## Cargo Features
 
-| Feature   | Default | Description                                                 |
-| --------- | ------- | ----------------------------------------------------------- |
-| `network` | no      | Enables `NetworkSession`, `UdpTransport`, and related types |
+| Feature   | Default | Description                                                |
+| --------- | ------- | ---------------------------------------------------------- |
+| `network` | **yes** | `NetworkSession`、`UdpTransport`、`PeerState`、packet 类型 |
 
 Enable in `Cargo.toml`:
 
@@ -249,4 +249,4 @@ cargo test
 
 ## License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

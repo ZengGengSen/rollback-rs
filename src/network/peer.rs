@@ -44,7 +44,7 @@ impl PeerState {
     fn update_redundancy(&mut self) {
         let frame_duration_ms = 1000.0 / 60.0;
         let rtt_frames = (self.rtt_ms / frame_duration_ms).ceil() as usize;
-        self.redundancy = (rtt_frames + 2).max(2).min(16);
+        self.redundancy = (rtt_frames + 2).clamp(2, 16);
     }
 
     pub fn suggested_input_delay(&self) -> u32 {

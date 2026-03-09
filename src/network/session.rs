@@ -20,7 +20,8 @@ use crate::sync::RollbackSession;
 /// Network Session
 ///
 /// Generic parameter `S` is the game state type, which must implement `RollbackState`.
-/// `S::Input` must also implement `Serialize + Deserialize` (already implied by the RollbackState bound).
+/// `S::Input` must also implement `Serialize + Deserialize` (already implied by the RollbackState
+/// bound).
 pub struct NetworkSession<S: RollbackState> {
     /// Underlying rollback engine
     pub rollback: RollbackSession<S>,
@@ -99,7 +100,8 @@ where
     /// 3. Call rollback.advance_frame
     /// 4. Send the local input to all peers
     ///
-    /// Returns `Ok(true)` if the frame was advanced normally, `Ok(false)` if the frame was stalled (simulation skipped)
+    /// Returns `Ok(true)` if the frame was advanced normally, `Ok(false)` if the frame was stalled
+    /// (simulation skipped)
     pub async fn advance_frame(&mut self, local_input: S::Input) -> Result<bool, RollbackError> {
         // 1. Process all pending packets
         self.poll().await;
@@ -128,13 +130,8 @@ where
     /// Process all currently available incoming packets (non-blocking, drains the channel)
     pub async fn poll(&mut self) {
         // Drain all immediately available packets without blocking for new ones
-        loop {
-            match self.recv_rx.try_recv() {
-                Ok((addr, data)) => {
-                    self.handle_packet(addr, &data).await;
-                }
-                Err(_) => break,
-            }
+        while let Ok((addr, data)) = self.recv_rx.try_recv() {
+            self.handle_packet(addr, &data).await;
         }
     }
 

@@ -301,7 +301,8 @@ fn test_input_delay_defers_local_input() {
     // input_delay=2: local input takes effect 2 frames later
     let mut session = RollbackSession::with_input_delay(SimpleState { pos: 0 }, 2, 8, 16, 2);
 
-    // Frame 0: submit local +10, delayed by 2 frames (target_frame=2); current frame uses prediction (0)
+    // Frame 0: submit local +10, delayed by 2 frames (target_frame=2); current frame uses
+    // prediction (0)
     session.advance_frame(0, SimpleInput { delta: 10 }).unwrap();
     // After frame 0: local player prediction is 0, pos = 0
     assert_eq!(
@@ -320,7 +321,11 @@ fn test_input_delay_defers_local_input() {
 
     // Frame 2: first +10 matures (target_frame=2 == current_frame=2), takes effect
     session.advance_frame(0, SimpleInput { delta: 10 }).unwrap();
-    assert_eq!(session.current_state().pos, 10, "local input must take effect after the delay expires");
+    assert_eq!(
+        session.current_state().pos,
+        10,
+        "local input must take effect after the delay expires"
+    );
 }
 
 #[test]
@@ -329,7 +334,11 @@ fn test_input_delay_zero_is_immediate() {
     let mut session = RollbackSession::with_input_delay(SimpleState { pos: 0 }, 2, 8, 16, 0);
 
     session.advance_frame(0, SimpleInput { delta: 5 }).unwrap();
-    assert_eq!(session.current_state().pos, 5, "input must take effect immediately with zero delay");
+    assert_eq!(
+        session.current_state().pos,
+        5,
+        "input must take effect immediately with zero delay"
+    );
 }
 
 #[test]
@@ -398,7 +407,8 @@ fn test_add_remote_inputs_skips_confirmed_frames() {
     // Advance frame 1
     session.advance_frame(0, SimpleInput { delta: 1 }).unwrap();
 
-    // Batch starting at frame 0 (frame 0 already confirmed, must be skipped; frame 1 processed normally)
+    // Batch starting at frame 0 (frame 0 already confirmed, must be skipped; frame 1 processed
+    // normally)
     let result = session.add_remote_inputs(
         1,
         0,
@@ -407,9 +417,13 @@ fn test_add_remote_inputs_skips_confirmed_frames() {
             SimpleInput { delta: 3 },  // Frame 1: real input +3
         ],
     );
-    assert!(result.is_ok(), "confirmed frames must be skipped rather than returning an error");
+    assert!(
+        result.is_ok(),
+        "confirmed frames must be skipped rather than returning an error"
+    );
 
-    // Frame 1: player 0 +1, player 1 +3 → confirmed_state.pos=2 (frame 0: 1+1), frame 1 replay: +1+3=4, total=6
+    // Frame 1: player 0 +1, player 1 +3 → confirmed_state.pos=2 (frame 0: 1+1), frame 1 replay:
+    // +1+3=4, total=6
     assert_eq!(session.current_state().pos, 6);
 }
 

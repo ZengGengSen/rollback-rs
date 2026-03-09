@@ -2,7 +2,8 @@
 //!
 //! Each UDP packet carries:
 //! - The sender's current frame number
-//! - A contiguous sequence of inputs starting from a given frame (redundantly sent to combat packet loss)
+//! - A contiguous sequence of inputs starting from a given frame (redundantly sent to combat packet
+//!   loss)
 //! - The sender's confirmed_frame + checksum (used for out-of-sync detection)
 
 use serde::{Deserialize, Serialize};
